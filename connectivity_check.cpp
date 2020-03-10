@@ -20,7 +20,6 @@ class Graph
             this->V = V;
             adj = new list<int>[V];
         }
-
         void addEdge(int v, int w);
         void BFS(int s, bool visited[]);
         Graph getTranspose();
@@ -78,7 +77,6 @@ Graph Graph::getTranspose()
             g.adj[*i].push_back(v);
         }
     }
-
     return g;
 }
 

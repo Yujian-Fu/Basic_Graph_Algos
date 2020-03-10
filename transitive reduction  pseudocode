@@ -1,0 +1,107 @@
+better to keep more long edges and delete short edges
+
+
+
+for vertex0 in vertices:
+    done = set()
+    for child in vertex0.children:
+        df(edges, vertex0, child, done)
+
+df = function(edges, vertex0, child0, done)
+    if child0 in done:
+        return
+    for child in child0.children:
+        edge.discard((vertex0, child))
+        df(edges, vertex0, child, done)
+    done.add(child0)
+
+
+
+with path matrix example:
+def prima(m, title=None):
+    """ Prints a matrix to the terminal """
+    if title:
+        print title
+    for row in m:
+        print ', '.join([str(x) for x in row])
+    print ''
+
+def path(m):
+    """ Returns a path matrix """
+    p = [list(row) for row in m]
+    n = len(p)
+    for i in xrange(0, n):
+        for j in xrange(0, n):
+            if i == j:
+                continue
+            if p[j][i]:
+                for k in xrange(0, n):
+                    if p[j][k] == 0:
+                        p[j][k] = p[i][k]
+    return p
+
+def hsu(m):
+    """ Transforms a given directed acyclic graph into its minimal equivalent """
+    n = len(m)
+    for j in xrange(n):
+        for i in xrange(n):
+            if m[i][j]:
+                for k in xrange(n):
+                    if m[j][k]:
+                        m[i][k] = 0
+
+m = [   [0, 1, 1, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 1, 1],
+        [0, 0, 0, 0, 1],
+        [0, 1, 0, 0, 0]]
+
+prima(m, 'Original matrix')
+hsu(m)
+prima(m, 'After Hsu')
+
+p = path(m)
+prima(p, 'Path matrix')
+hsu(p)
+prima(p, 'After Hsu')
+
+output:
+Adjacency matrix
+0, 1, 1, 0, 0
+0, 0, 0, 0, 0
+0, 0, 0, 1, 1
+0, 0, 0, 0, 1
+0, 1, 0, 0, 0
+
+After Hsu
+0, 1, 1, 0, 0
+0, 0, 0, 0, 0
+0, 0, 0, 1, 0
+0, 0, 0, 0, 1
+0, 1, 0, 0, 0
+
+Path matrix
+0, 1, 1, 1, 1
+0, 0, 0, 0, 0
+0, 1, 0, 1, 1
+0, 1, 0, 0, 1
+0, 1, 0, 0, 0
+
+After Hsu
+0, 0, 1, 0, 0
+0, 0, 0, 0, 0
+0, 0, 0, 1, 0
+0, 0, 0, 0, 1
+0, 1, 0, 0, 0
+
+
+The idea for Finding a minimal transitive reduction in a strongly connected
+digraph within linear time:
+
+1st step: divide the type of edges and analysis according to types of edges.
+          Note: the for stand is used to store edge pairs.
+
+2nd step: delete the edges that donnot affect the connectivity.
+
+
+
