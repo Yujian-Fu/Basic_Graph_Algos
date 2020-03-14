@@ -22,6 +22,7 @@ struct  Tuple
     }
 };
 
+
 float getDistXY(Tuple t1, Tuple t2)
 {
     float dis = 0;
@@ -68,7 +69,6 @@ float getVar(vector<Tuple> clusters[], Tuple means[])
 Tuple getMeans(vector<Tuple> cluster)
 {
     int num = cluster.size();
-    double meansX = 0, meansY = 0;
     Tuple t;
     for (int i = 0; i < num; i++)
     {

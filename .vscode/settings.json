@@ -3,6 +3,7 @@
         "iostream": "cpp",
         "ostream": "cpp",
         "algorithm": "cpp",
-        "stdexcept": "cpp"
+        "stdexcept": "cpp",
+        "*.tcc": "cpp"
     }
 }
