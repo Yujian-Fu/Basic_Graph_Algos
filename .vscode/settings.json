@@ -5,6 +5,8 @@
         "algorithm": "cpp",
         "stdexcept": "cpp",
         "*.tcc": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "fstream": "cpp",
+        "chrono": "cpp"
     }
 }

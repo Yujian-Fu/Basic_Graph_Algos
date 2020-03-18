@@ -1,3 +1,5 @@
+#ifndef _knn_utils_
+#define _knn_utils_
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -6,7 +8,7 @@
 #include "struct_define.hpp"
 #include "kmeans.hpp"
 
-#define num_neighbors 10
+#define num_neighbors 5
 
 
 using namespace std;
@@ -15,7 +17,7 @@ using namespace std;
 unsigned get_size(char* filename)
 {
     ifstream infile(filename, ios::binary);
-    if(!infile.is_open)
+    if(!infile.is_open())
     {
         cout << "file open error" << endl;
         exit(-1);
@@ -29,6 +31,70 @@ unsigned get_size(char* filename)
     return dataset_size;
 }
 
+float getDistance_vertex(vertex processing_node, vertex mean_node)
+{
+    float dis = 0;
+    assert(processing_node.dim = mean_node.dim);
+    for (int i = 0; i < processing_node.dim; i++)
+    {
+        dis += (processing_node.data[i] - mean_node.data[i]) * (processing_node.data[i] - mean_node.data[i]);
+    }
+    return dis;
+}
+
+vector<unsigned> get_neighbors_index(vector<vertex>& nodes, int target)
+{
+    vector<unsigned> neighbor_index;
+    float k_dis[num_neighbors + 1];
+    float dis;
+    float largest_dis;
+    unsigned largest_index;
+    for (int i = 0; i < num_neighbors+1; i++)
+    {
+        neighbor_index.push_back(0);
+    }
+
+    for (int i = 0; i < num_neighbors+1; i++)
+    {
+        dis = getDistance_vertex(nodes[target], nodes[i]);
+        neighbor_index[i] = nodes[i].id;
+        k_dis[i] = dis;
+        if (i == 0)
+        {
+            largest_index = 0;
+            largest_dis = dis;
+        }
+        else
+        {
+            if (dis > largest_dis)
+            {
+                largest_dis = dis;
+                largest_index = i;
+            }
+        }
+    }
+
+    for (int i = num_neighbors+2; i< nodes.size(); i++)
+    {
+        dis = getDistance_vertex(nodes[target], nodes[i]);
+        if (dis < largest_dis)
+        {
+            neighbor_index[largest_index] = nodes[i].id;
+            k_dis[largest_index] = dis;
+            largest_dis = dis;
+            for (int j=0; j < num_neighbors + 1; j++)
+            {
+                if (k_dis[j] > largest_dis)
+                {
+                    largest_dis = k_dis[j];
+                    largest_index = j;
+                }
+            }
+        }
+    }
+
+    return neighbor_index;
+}
 
 void merge_edges(vector<adj_list>& all_edges, vector<adj_list>& adj_lists)
 {
@@ -46,18 +112,34 @@ void merge_edges(vector<adj_list>& all_edges, vector<adj_list>& adj_lists)
 
 void build_sub_graph(vector<vertex>& nodes, vector<adj_list>& adj_lists)
 {
+    int complete_flag1, complete_flag2;
     for (int i = 0; i < nodes.size(); i++)
     {
-        unsigned* neighbors = get_neighbors_index(nodes, i);
-        for (int j = 1; j < num_neighbors+1; j++)
+        vector<unsigned> neighbors = get_neighbors_index(nodes, i);
+        for (int j = 0; j < neighbors.size(); j++)
         {
-            for (int k = 0; k < adj_lists.size(); k++)
+            complete_flag1 = 0;
+            complete_flag2 = 0;
+            if (neighbors[j] != nodes[i].id)
             {
-                if (neighbors[j] == adj_lists[k].id)
+                for (int k = 0; k < adj_lists.size(); k++)
                 {
-                    adj_lists[k].edges.insert(neighbors[j]);
+                    if (adj_lists[k].id == nodes[i].id)
+                    {
+                        adj_lists[k].edges.insert(neighbors[j]);
+                        complete_flag1 = 1;
+                    }
+                    
+                    else if (neighbors[j] == adj_lists[k].id)
+                    {
+                        //cout << "add " << neighbors[j] << " in " << adj_lists[k].id << " list " << endl;
+                        adj_lists[k].edges.insert(nodes[i].id);
+                        complete_flag2 = 1;
+                    }
+
+                    if (complete_flag1 = 1 && complete_flag2 == 1)
+                        break;
                 }
-                break;
             }
         }
     }
@@ -110,70 +192,4 @@ void read_fvecs(char* filename, float* &data, unsigned &num_points, unsigned &di
 
 
 
-float getDistance_vertex(vertex processing_node, vertex mean_node)
-{
-    float dis = 0;
-    assert(processing_node.dim = mean_node.dim);
-    for (int i = 0; i < processing_node.dim; i++)
-    {
-        dis += (processing_node.data[i] - mean_node.data[i]) * (processing_node.data[i] - mean_node.data[i]);
-    }
-    return dis;
-}
-
-
-unsigned* get_neighbors_index(vector<vertex>& nodes, int target)
-{
-    unsigned k_index[num_neighbors + 1];
-    float k_dis[num_neighbors + 1];
-    float dis;
-    float largest_dis;
-    unsigned largest_index;
-    for (int i = 0; i < num_neighbors; i++)
-    {
-        k_index[i] = 0;
-    }
-
-    for (int i = 0; i < num_neighbors+1; i++)
-    {
-
-        dis = getDistance_vertex(nodes[target], nodes[i]);
-        k_index[i] = i;
-        k_dis[i] = dis;
-        if (i == 0)
-        {
-            largest_index = 0;
-            largest_dis = dis;
-        }
-        else
-        {
-            if (dis > largest_dis)
-            {
-                largest_dis = dis;
-                largest_index = i;
-            }
-        }
-    }
-
-    for (int i = num_neighbors+2; i< nodes.size(); i++)
-    {
-        dis = getDistance_vertex(nodes[target], nodes[i]);
-        if (dis < largest_dis)
-        {
-            k_index[largest_index] = i;
-            k_dis[largest_index] = dis;
-            largest_dis = dis;
-            for (int j=0; j < num_neighbors + 1; i++)
-            {
-                if (k_dis[j] > largest_dis)
-                {
-                    largest_dis = k_dis[j];
-                    largest_index = j;
-                }
-            }
-            break;
-        }
-    }
-
-    return k_index;
-}
+#endif

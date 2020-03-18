@@ -1,3 +1,5 @@
+#ifndef _struct_definition_
+#define _struct_definition_
 #include <vector>
 #include <set>
 
@@ -10,13 +12,12 @@ struct  vertex
     unsigned id;
     unsigned dim;
     
-    float* data;
+    vector<float> data;
 
-    vertex (int id, float* data, int dim = dimension)
+    vertex (int id, int dim = dimension)
     {
         this->dim = dim;
         this->id = id;
-        this->data = data;
     }
 };
 
@@ -35,11 +36,12 @@ struct adj_list
 struct point
 {
     unsigned dim;
-    float* data;
+    vector<float> data;
 
-    point(unsigned dim = 0, float* data = nullptr)
+    point(unsigned dim = 0)
     {
         this->dim = dim;
-        this->data = data;
     }
 };
+
+#endif
