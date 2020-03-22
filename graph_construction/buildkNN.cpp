@@ -2,7 +2,7 @@
 #include <fstream>
 #include <list>
 #include <bits/stdc++.h>
-
+#include "transition_reduction.hpp"
 #include "buildKNN.hpp"
 
 using namespace std;
@@ -49,7 +49,8 @@ int main()
     }
 
     kmeans_subset(subset, means);*/
-    merge_kNN(filename);
+    //merge_kNN(filename);
+    transitive_reduction(filename);
 
     
     

@@ -116,12 +116,18 @@ void build_sub_graph(vector<vertex>& nodes, vector<adj_list>& adj_lists)
     for (int i = 0; i < nodes.size(); i++)
     {
         vector<unsigned> neighbors = get_neighbors_index(nodes, i);
+        /*for (int j = 0; j < neighbors.size(); j++)
+        {
+            cout << neighbors[j] << "  ";
+        }
+        cout << endl;
+        */
         for (int j = 0; j < neighbors.size(); j++)
         {
-            complete_flag1 = 0;
-            complete_flag2 = 0;
             if (neighbors[j] != nodes[i].id)
             {
+                complete_flag1 = 0;
+                complete_flag2 = 0;
                 for (int k = 0; k < adj_lists.size(); k++)
                 {
                     if (adj_lists[k].id == nodes[i].id)
@@ -130,16 +136,23 @@ void build_sub_graph(vector<vertex>& nodes, vector<adj_list>& adj_lists)
                         complete_flag1 = 1;
                     }
                     
-                    else if (neighbors[j] == adj_lists[k].id)
+                    else if (adj_lists[k].id == neighbors[j])
                     {
                         //cout << "add " << neighbors[j] << " in " << adj_lists[k].id << " list " << endl;
                         adj_lists[k].edges.insert(nodes[i].id);
                         complete_flag2 = 1;
                     }
 
-                    if (complete_flag1 = 1 && complete_flag2 == 1)
+                    if (complete_flag1 == 1 && complete_flag2 == 1)
                         break;
+                        
                 }
+
+                /*if (complete_flag1 == 0 || complete_flag2 == 0)
+                {
+                    cout << "flag error" << endl;
+                    exit(0);
+                }*/
             }
         }
     }

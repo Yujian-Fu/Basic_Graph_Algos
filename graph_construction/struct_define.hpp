@@ -44,4 +44,36 @@ struct point
     }
 };
 
+
+//the visit ID and the finish ID of every point 
+struct dfs_num
+{
+    int id;
+    int visit_num;
+    int finish_num;
+
+    dfs_num(int id, int num)
+    {
+        this->id = id;
+        this->visit_num = num;
+    }
+};
+
+
+//
+struct tr_edge
+{
+    //the start num is the physical position to load this data point
+    unsigned start;
+    unsigned end;
+    //this is the edge type
+    unsigned label;
+
+    tr_edge(unsigned start, unsigned end)
+    {
+        this->start = start;
+        this->end = end;
+    }
+};
+
 #endif

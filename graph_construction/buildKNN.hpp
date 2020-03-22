@@ -5,10 +5,8 @@
 #include <vector>
 
 #include "kmeans.hpp"
-#include "struct_define.hpp"
 #include "buildKNN_utils.hpp"
-
-
+#include "struct_define.hpp"
 
 using namespace std;
 
@@ -25,13 +23,24 @@ void merge_kNN(char* filename)
     vector<point> means;
     //generate K centroids with kmeans
     kmeans(filename, means);
+    ofstream all_centroids;
+    all_centroids.open("centroids.bin", ios::binary);
+    int num_centroid = means.size();
+    int dim = means[0].dim;
+    all_centroids.write((char* )& num_centroid, sizeof(int));
+    all_centroids.write((char* )& dim, sizeof(dim));
+    for (int i = 0; i < means.size(); i++)
+    {
+        for (int j = 0; j < means[i].dim; j++)
+            all_centroids.write((char*) & means[i].data[j], sizeof(float));
+    }
+    all_centroids.close();
     ifstream infile(filename, ios::binary);
     if (!infile.is_open())
     {
         cout << "file open error" << endl;
         exit(-1);
     }
-    unsigned dim;
     //read the dimension of the dataset
     infile.read((char*)&dim, 4);
     infile.seekg(0, ios::end);
@@ -110,19 +119,52 @@ void merge_kNN(char* filename)
         }
         cout << "this cluster has " << vertex_nodes.size() << " nodes " << endl << endl ;
         build_sub_graph(vertex_nodes, adj_lists);
-        for (int it = 0; it < adj_lists.size(); it++)
+        vector<vertex>().swap(vertex_nodes);
+        merge_edges(all_edges, adj_lists);
+        
+        for (int it = 0; it < all_edges.size(); it++)
         {
-            cout << endl << "the edges for node " << adj_lists[it].id << " is " << endl;
-                for(set<int>::iterator it_=adj_lists[it].edges.begin() ;it_!=adj_lists[it].edges.end();it_++)
+            cout << endl << "the edges for node " << all_edges[it].id << " is " << endl;
+                for(set<int>::iterator it_=all_edges[it].edges.begin() ;it_!=all_edges[it].edges.end();it_++)
                 {
                     cout<<*it_<<"  ";
                 }
                 cout << endl;
         }
-        vector<vertex>().swap(vertex_nodes);
-
-        merge_edges(all_edges, adj_lists);
         vector<adj_list>().swap(adj_lists);
+    }
+    //the out put part
+    int num_all_edges = 0;
+    ofstream edge_output;
+
+    edge_output.open("edges.bin", ios::binary);
+
+    ofstream txt_output;
+    txt_output.open("edges.txt");
+    int length;
+    for (int i = 0; i < all_edges.size(); i++)
+    {
+        length = all_edges[i].edges.size();
+        edge_output.write((char*)& i, sizeof(int));
+        edge_output.write((char*)& length, sizeof(int));
+        txt_output << endl << i << "  " << length << endl;
+        for (set<int>::iterator j = all_edges[i].edges.begin();
+         j != all_edges[i].edges.end(); j++)
+        {
+            edge_output.write((char*)& (*j), sizeof(int));
+            txt_output << *j << " ";
+        }
+        num_all_edges += all_edges[i].edges.size();
+    }
+    edge_output.close();
+    cout << "the total size for this graph is " << num_all_edges << endl;
+    ifstream edges;
+    int each_edge;
+    edges.open("edges.bin", ios::binary);
+    while (!edges.eof())
+    {
+        edges.read((char*)& each_edge, sizeof(int));
+        cout << each_edge << " ";
     }
     exit(0);
     return;

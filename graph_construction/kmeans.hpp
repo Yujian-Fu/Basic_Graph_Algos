@@ -11,8 +11,8 @@
 
 #include "struct_define.hpp"
 
-#define kmeans_iteration_times 10
-#define K 15
+#define kmeans_iteration_times 5
+#define K 10
 #define usekmeansplusplus false
 
 using namespace std;
@@ -113,10 +113,13 @@ unsigned& dataset_size, float offset, bool random)
 float getDistance(point processing_node, point mean_node)
 {
     float dis = 0;
+    float compute_result = 0;
     assert(processing_node.dim = mean_node.dim);
     for (int i = 0; i < processing_node.dim; i++)
     {
-        dis += (processing_node.data[i] - mean_node.data[i]) * (processing_node.data[i] - mean_node.data[i]);
+        compute_result = (processing_node.data[i] - mean_node.data[i]) * (processing_node.data[i] - mean_node.data[i]);
+        dis += compute_result;
+        //cout << setprecision(16) << dis << " " << compute_result << " " << processing_node.data[i] << " " << mean_node.data[i] << endl;
     }
     return dis;
 }
