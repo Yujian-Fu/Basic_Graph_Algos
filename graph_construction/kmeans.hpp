@@ -13,7 +13,7 @@
 
 #define kmeans_iteration_times 5
 #define K 10
-#define usekmeansplusplus false
+#define usekmeansplusplus true
 #define kmeans_proportion 0.5
 
 using namespace std;
