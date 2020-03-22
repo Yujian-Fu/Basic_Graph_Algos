@@ -456,6 +456,10 @@ void merge_sub_graph(vector<adj_list>& final_graph, vector<tr_edge> all_edges)
 
 void transitive_reduction(char* filename)
 {
+    cout << segement_line << endl;
+    cout << "Start pruning with transitive reduciton " << endl;
+    cout << "the probability for deleting forward edges: " << front_delete_probability << endl;
+    cout << "the probability for deleting back edges: " << back_delete_probability << endl;
     vector<point> means;
     read_centroids(means);
     vector<adj_list> adj_lists;
@@ -466,7 +470,7 @@ void transitive_reduction(char* filename)
     int num_centroids = means.size();
     int start_node[num_centroids];
     generate_start_node(means, filename, start_node);
-    cout << endl << "the selected start node is ";
+    cout << endl << "the selected start node for all centroids are: ";
     for (int i = 0; i < num_centroids; i++)
     cout << start_node[i] << " ";
     cout << endl;
@@ -515,6 +519,7 @@ void transitive_reduction(char* filename)
         all_edges.clear();
         dfs_tag.clear();
         tag_all_edges(sub_adj_list, all_edges, start_node[i], dfs_tag, num_points);
+        cout << "Pruning " << i+1 << " th cluster " << endl;
         cout << "the total number of edges is " << all_edges.size() << endl;
 
         delete_front_edges(all_edges);
@@ -542,8 +547,16 @@ void transitive_reduction(char* filename)
         merge_sub_graph(final_graph, all_edges);
     }
 
-
+    //compute the total edges in the final graph
     int count = 0;
+    for (int i = 0; i < num_points; i++)
+    {
+        count += final_graph[i].edges.size();
+    }
+    cout << "merged graph with edges " << count << endl;
+
+
+    count = 0;
     for (int i = 0; i < num_points; i++)
     {
         if (is_selected[i] == false)
@@ -565,13 +578,6 @@ void transitive_reduction(char* filename)
         }
     }
 
-    //compute the total edges in the final graph
-    count = 0;
-    for (int i = 0; i < num_points; i++)
-    {
-        count += final_graph[i].edges.size();
-    }
-    cout << "final graph with edges " << count << endl;
 
 
     // check the connectivity of final graph
@@ -612,16 +618,17 @@ void transitive_reduction(char* filename)
     {
         if (visited[i] == false)
         {
-            cout << "connectivity check not passed ! " << endl;
+            cout << "Connectivity check not passed ! " << endl;
             connectivity_check_passed = false;
             break;
         }    
     }
     if (connectivity_check_passed == true)
-        cout <<"connectivity check passed " << endl;
+        cout <<"Connectivity check passed " << endl;
 
     //the out put part to output the edges
     int num_all_edges = 0;
+    cout << "Saving all edges to edges_final.bin and edges_final.txt" << endl;
     ofstream edge_output;
 
     edge_output.open("edges_final.bin", ios::binary);
@@ -653,7 +660,8 @@ void transitive_reduction(char* filename)
         num_all_edges += final_graph[i].edges.size();
     }
     edge_output.close();
-    cout << "the total size for this graph is " << num_all_edges << endl;
+    cout << "File saved successfully " << endl;
+    cout << "The total size for this graph is " << num_all_edges << endl;
 
 }
     

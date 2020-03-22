@@ -4,7 +4,7 @@
 #include <set>
 
 #define dimension 128
-
+#define segement_line "-----------------------------------------------------------"
 using namespace std;
 
 struct  vertex

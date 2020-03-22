@@ -19,10 +19,21 @@ output: vector<adj_list>: the edges for every nodes.
 
 void merge_kNN(char* filename)
 {
+    cout << segement_line << endl;
+
+    cout << "Now start the merge kNN generation procession " << endl;
+    cout << "The processing file " << filename << endl;
+    cout << "The parameter list: k: " << num_neighbors << endl;
+    cout << "The iteration time for kmeans " << kmeans_iteration_times << endl;
+    cout << "The number of sub graph: " << K << endl;
+    cout << "Using k-means++: " << usekmeansplusplus << endl;
+    cout << "Proportion of dataset used in kmeans iteration: " << kmeans_proportion << endl;
     //define K kmeans centroids 
     vector<point> means;
     //generate K centroids with kmeans
     kmeans(filename, means);
+    cout << "kmeans algorithm finished " << endl;
+    cout << "Saving all centroids named 'centroids.bin' ..." << endl;
     ofstream all_centroids;
     all_centroids.open("centroids.bin", ios::binary);
     int num_centroid = means.size();
@@ -35,6 +46,7 @@ void merge_kNN(char* filename)
             all_centroids.write((char*) & means[i].data[j], sizeof(float));
     }
     all_centroids.close();
+    cout << "Saving successfully " << endl;
     ifstream infile(filename, ios::binary);
     if (!infile.is_open())
     {
@@ -76,15 +88,10 @@ void merge_kNN(char* filename)
     delete [] each_point;
     vector<int>().swap(labels);
     
-    
+    cout << "The number of nodes in various cluster for kNN construction: " << endl;
     for(int i = 0; i < K; i++)
     {
-        /*for (int j = 0; j < cluster_allocation[i].size(); j++)
-        {
-            cout << cluster_allocation[i][j] << " ";
-        }
-        cout << endl;*/
-        cout << "the size in this cluster is " << cluster_allocation[i].size() << endl;
+        cout << i+1 << " th cluster: " << cluster_allocation[i].size() << endl;
     }
     
     
@@ -97,8 +104,10 @@ void merge_kNN(char* filename)
         all_edges.push_back(each_list);
     }
 
+
     for (int i = 0; i < K; i++)
     {
+        cout << "Now building and merging " << i << " th subgraph" << endl; 
         vector<vertex> vertex_nodes;
         vector<adj_list> adj_lists; 
         vertex_nodes.clear();
@@ -117,11 +126,11 @@ void merge_kNN(char* filename)
             vertex_nodes.push_back(vertex_node);
             adj_lists.push_back(vertex_edge);
         }
-        cout << "this cluster has " << vertex_nodes.size() << " nodes " << endl << endl ;
         build_sub_graph(vertex_nodes, adj_lists);
         vector<vertex>().swap(vertex_nodes);
         merge_edges(all_edges, adj_lists);
         
+        /*
         for (int it = 0; it < all_edges.size(); it++)
         {
             cout << endl << "the edges for node " << all_edges[it].id << " is " << endl;
@@ -131,14 +140,14 @@ void merge_kNN(char* filename)
                 }
                 cout << endl;
         }
+        */
         vector<adj_list>().swap(adj_lists);
     }
     //the out put part
+    cout << "Saving edges of kNN graph named 'edges.bin' and 'edges.txt' " << endl;
     int num_all_edges = 0;
     ofstream edge_output;
-
     edge_output.open("edges.bin", ios::binary);
-
     ofstream txt_output;
     txt_output.open("edges.txt");
     int length;
@@ -157,7 +166,9 @@ void merge_kNN(char* filename)
         num_all_edges += all_edges[i].edges.size();
     }
     edge_output.close();
-    cout << "the total size for this graph is " << num_all_edges << endl;
+    cout << "Saving successfully " << endl;
+    cout << "the total size in this graph is " << num_all_edges << endl;
+    /*
     ifstream edges;
     int each_edge;
     edges.open("edges.bin", ios::binary);
@@ -166,7 +177,7 @@ void merge_kNN(char* filename)
         edges.read((char*)& each_edge, sizeof(int));
         cout << each_edge << " ";
     }
-    exit(0);
+    */
     return;
 }
 

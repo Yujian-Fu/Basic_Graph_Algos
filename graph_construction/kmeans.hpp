@@ -14,6 +14,7 @@
 #define kmeans_iteration_times 5
 #define K 10
 #define usekmeansplusplus false
+#define kmeans_proportion 0.5
 
 using namespace std;
 using namespace std::chrono;
@@ -64,7 +65,7 @@ unsigned& dataset_size, float offset, bool random)
     if (random)
     {
         //shuffle the origin dataset index, to get proportion data
-        cout << "the seed for shuffle function is " << time(0) << endl;
+        //cout << "the seed for shuffle function is " << time(0) << endl;
         shuffle(full_index, full_index + dataset_size, default_random_engine(time(0)));
     }
     unsigned *proportion_index = new unsigned [proportion_data_size];
@@ -103,7 +104,7 @@ unsigned& dataset_size, float offset, bool random)
     }
     infile.close();
     delete [] proportion_index;
-    //auto stop = high_resolution_clock::now(); 
+    //auto stop = high_resolution_clock::now();
     //auto duration = duration_cast<microseconds>(stop - start);
     //cout << "Time taken by function: " << duration.count() << " microseconds" << endl;
 
@@ -311,11 +312,10 @@ void kmeans_subset(vector<point> & subset, vector<point>& means)
         }
         else
         {
-            cout << "initializing the random centroids" << endl;
+            cout << "initializing the random centroids without kmeans++" << endl;
             for (int i = 0; i < K; i++)
             {
                 means.push_back(subset[(rand()%subset.size())]);
-                cout << "one centroid added " << endl;
             }
         }
     }
@@ -384,7 +384,7 @@ void kmeans_subset(vector<point> & subset, vector<point>& means)
 
 void kmeans(char* filename, vector<point> & means)
 {
-    float proportion = 0.5 ;
+    float proportion = kmeans_proportion;
     // kmeans_iteration_times is a parameter that decides how many times we generate
     // kmeans centroids, the larger, the more accurate.
     vector<point> subset;
@@ -395,8 +395,9 @@ void kmeans(char* filename, vector<point> & means)
     int var;
     for (int i = 0; i < kmeans_iteration_times; i++)
     {
+        cout << i+1 << " th kmeans iteration in " << kmeans_iteration_times << endl;
         usleep(1000000);
-        cout << "the seed for main loop is " << time(0) << endl;
+        //cout << "the seed for main loop is " << time(0) << endl;
         srand((unsigned)time(0));
         //get a proportion of the origin dataset to subset and read its dimension and dataset size.
         get_proportion_dataset(filename, subset, proportion, dim, dataset_size, 0, true);
@@ -406,6 +407,7 @@ void kmeans(char* filename, vector<point> & means)
         
         if (i > 0)
         {
+            /*
             cout << "the recorded mean" << endl;
             for (int a = 0; a < mean_record.size(); a++)
             {
@@ -416,6 +418,7 @@ void kmeans(char* filename, vector<point> & means)
                 cout << endl;
             }
             cout << endl;
+            */
             var = 0;
             for (int it = 0; it < means.size(); it++)
             {
@@ -428,6 +431,7 @@ void kmeans(char* filename, vector<point> & means)
             var_record[i-1] = var;
         }
         
+        /*
         cout << "the generated mean" << endl;
         for (int a = 0; a < means.size(); a++)
         {
@@ -449,19 +453,21 @@ void kmeans(char* filename, vector<point> & means)
             cout << endl;
         }
         cout << endl;
+        */
 
         for (int j = 0; j < means.size(); j++)
         {
             mean_record.push_back(means[j]);
         }
     }
-    cout << "the final subset size is " << subset.size() << endl;
+    /*cout << "the final subset size is " << subset.size() << endl;
     cout << "the var for means generation are " << endl;
     for (int i = 0; i < kmeans_iteration_times-1; i++)
     {
         cout << var_record[i] << "  ";
     }
     cout << endl;
+    */
     //point_memory_collection(subset);
 }
 
