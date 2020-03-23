@@ -6,6 +6,7 @@
 
 #define front_delete_probability 0.8
 #define back_delete_probability 0.8
+#define SUBSET_PROPORTION 0.03
 
 //typedef pair<int, int> backpoint;
 //typedef pair<pair<int, int>, pair<int, int>> standfor;
@@ -476,7 +477,7 @@ void transitive_reduction(char* filename)
     cout << endl;
 
     
-    float subset_proportion = 0.2;
+    float subset_proportion = SUBSET_PROPORTION;
     bool is_selected [num_points];
     for (int i = 0; i < num_points; i++)
     {   is_selected[i] = false; }

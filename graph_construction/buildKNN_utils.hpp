@@ -8,7 +8,7 @@
 #include "struct_define.hpp"
 #include "kmeans.hpp"
 
-#define num_neighbors 10
+#define num_neighbors 5
 
 
 using namespace std;
