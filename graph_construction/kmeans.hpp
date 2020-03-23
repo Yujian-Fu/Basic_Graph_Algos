@@ -292,7 +292,7 @@ void kmeansplusplus(vector<point> & subset, vector<point>& means)
             if (random_dis < 0)
             {
                 means.push_back(subset[i]);
-                //cout << "one centroid added " << endl;
+                cout << means.size() << " centroids added " << endl;
                 break;
             }
         }
