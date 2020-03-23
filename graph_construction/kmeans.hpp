@@ -12,7 +12,7 @@
 #include "struct_define.hpp"
 
 #define kmeans_iteration_times 5
-#define K 10
+#define K 20
 #define usekmeansplusplus true
 #define kmeans_proportion 0.5
 
@@ -292,7 +292,7 @@ void kmeansplusplus(vector<point> & subset, vector<point>& means)
             if (random_dis < 0)
             {
                 means.push_back(subset[i]);
-                cout << "one centroid added " << endl;
+                //cout << "one centroid added " << endl;
                 break;
             }
         }
