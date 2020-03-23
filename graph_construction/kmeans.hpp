@@ -12,9 +12,9 @@
 #include "struct_define.hpp"
 
 #define kmeans_iteration_times 5
-#define K 1000
+#define K 100
 #define usekmeansplusplus true
-#define kmeans_proportion 0.01
+#define kmeans_proportion 0.1
 
 using namespace std;
 using namespace std::chrono;
