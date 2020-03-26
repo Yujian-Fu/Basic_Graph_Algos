@@ -41,7 +41,7 @@ void file_read()
     cout << "The dimension of this dataset is " << dim << endl;
 
     int8_t a = 18;
-     cout << "The value of a is " << a << endl;;
+     cout << "The value of a is " << (int) a << endl;
     edge_output.seekg(0, ios::end);
     ios::pos_type ss = edge_output.tellg();
     size_t fsize = (size_t) ss;
@@ -62,7 +62,7 @@ void file_read()
             cout << each_num << " ";
         }
         cout << endl;*/
-        cout << each_num[0] << "  ";
+        cout << (int) each_num[0] << "  ";
     }
 }
 
