@@ -43,7 +43,7 @@ void file_read()
     int each_num;
     edge_output.seekg(0, ios::beg);
     //while(!edge_output.eof())
-    for (int i = 0; i < 100; i++)
+    for (int i = 0; i < 200; i++)
     {
         edge_output.read((char *)& each_num, sizeof(int));
         /*cout << "this node has " << each_num << " edges " <<endl;
