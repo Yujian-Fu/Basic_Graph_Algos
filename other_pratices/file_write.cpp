@@ -34,27 +34,25 @@ void file_read()
 {
     int dim;
     ifstream edge_output;
-    edge_output.open("/home/y/yujianfu/similarity_search/datasets/ANN_SIFT1B/1milliard.p1.siftbin");
+    edge_output.open("/home/y/yujianfu/similarity_search/datasets/ANN_SIFT1B/SIFT1B_learn.fvecs");
     streampos begin, end;
     begin = edge_output.tellg();
     edge_output.read((char*) & dim, 4);
     cout << "The dimension of this dataset is " << dim << endl;
 
-    int8_t a = 18;
-     cout << "The value of a is " << (int) a << endl;
     edge_output.seekg(0, ios::end);
     ios::pos_type ss = edge_output.tellg();
     size_t fsize = (size_t) ss;
-    int num =  (unsigned)(fsize / (dim + 1) /sizeof(uint8_t));
+    int num =  (unsigned)(fsize / (dim + 1) /4);
 
     cout << "the size of all edges is " << num << "edges. \n" << endl;
-    uint8_t each_num[dim];
+    float each_num[dim];
     //while(!edge_output.eof())
     edge_output.seekg(0, ios::beg);
     for (int i = 0; i < 200; i++)
     {
         edge_output.seekg(4, ios::cur);
-        edge_output.read((char *) each_num, dim*sizeof(uint8_t));
+        edge_output.read((char *) each_num, dim*sizeof(float));
         /*cout << "this node has " << each_num << " edges " <<endl;
         for (int i = 0; i < each_num; i++)
         {
@@ -100,7 +98,7 @@ void file_transfer()
 int main()
 {
     //file_write();
-    //file_read(); 
-    file_transfer(); 
+    file_read(); 
+    //file_transfer(); 
 }
 
