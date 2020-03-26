@@ -41,12 +41,10 @@ void file_read()
     cout << "The dimension of this dataset is " << dim << endl;
 
     edge_output.seekg(0, ios::end);
+    ios::pos_type ss = edge_output.tellg();
+    size_t fsize = (size_t) ss;
+    int num =  (unsigned)(fsize / (dim + 1) /4);
 
-
-    end = edge_output.tellg();
-
-
-    int num = (size_t) end / sizeof(int);
     cout << "the size of all edges is " << num << "edges. \n" << endl;
     float each_num[dim];
     //while(!edge_output.eof())
@@ -54,7 +52,7 @@ void file_read()
     for (int i = 0; i < 200; i++)
     {
         edge_output.seekg(4, ios::cur);
-        edge_output.read((char *)& each_num, sizeof(float));
+        edge_output.read((char *) each_num, dim * 4);
         /*cout << "this node has " << each_num << " edges " <<endl;
         for (int i = 0; i < each_num; i++)
         {
