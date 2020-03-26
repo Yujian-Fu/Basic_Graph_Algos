@@ -40,7 +40,7 @@ void file_read()
     end = edge_output.tellg();
     int num = (end - begin) / sizeof(int);
     cout << "the size of all edges is " << (end - begin)/sizeof(int) << "edges. \n" << endl;
-    int each_num;
+    float each_num;
     edge_output.seekg(0, ios::beg);
     //while(!edge_output.eof())
     for (int i = 0; i < 200; i++)

@@ -87,7 +87,7 @@ unsigned& dataset_size, float offset, bool random)
         
         point one_point = point(dim);
         one_point.data.insert(one_point.data.begin(), each_point, each_point+dim);
-
+        
         subset.push_back(one_point);
         /*
         if (subset.size() > 1)
