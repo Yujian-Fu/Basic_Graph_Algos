@@ -20,7 +20,7 @@ int main()
     start = clock();
     merge_kNN(filename);
     finish = clock();
-    cout << "Graph construciton takes " << (double)(finish - start) / CLOCKS_PER_SEC << " second." << endl;
+    //cout << "Graph construciton takes " << (double)(finish - start) / CLOCKS_PER_SEC << " second." << endl;
     
     
     /*

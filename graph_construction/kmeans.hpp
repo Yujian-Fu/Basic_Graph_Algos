@@ -11,10 +11,10 @@
 
 #include "struct_define.hpp"
 
-#define kmeans_iteration_times 5
-#define K 20
+#define kmeans_iteration_times 2
+#define K 50
 #define usekmeansplusplus true
-#define kmeans_proportion 0.5
+#define kmeans_proportion 0.01
 
 using namespace std;
 using namespace std::chrono;
@@ -335,8 +335,12 @@ void kmeans_subset(vector<point> & subset, vector<point>& means)
 
     float oldvar = -1;
     float newvar = getVar(clusters, means);
+    clock_t start,finish;
+    int count = 0;
     while (abs(newvar - oldvar) > 1)
     {
+        start = clock();
+        count ++;
         means.clear();
         
         for (int i = 0; i < K; i++)
@@ -362,6 +366,8 @@ void kmeans_subset(vector<point> & subset, vector<point>& means)
             label = get_closest_Label(subset[i], means);
             clusters[label].push_back(subset[i]);
         }
+        finish = clock();
+        cout << "The time taken for" << count << " kmeans iteration is " << (double)(finish - start) / CLOCKS_PER_SEC << endl;
     }
     /*cout << "here we print the mean point for one iteration with " << means.size() << " centroids "<< endl << endl;
     for(int i= 0; i < means.size(); i++)
@@ -393,8 +399,12 @@ void kmeans(char* filename, vector<point> & means)
     float var_record[kmeans_iteration_times-1];
     vector<point>  mean_record;
     int var;
+    clock_t start,finish;
+
+
     for (int i = 0; i < kmeans_iteration_times; i++)
     {
+        start = clock();
         cout << i+1 << " th kmeans iteration in " << kmeans_iteration_times << endl;
         usleep(1000000);
         //cout << "the seed for main loop is " << time(0) << endl;
@@ -402,12 +412,15 @@ void kmeans(char* filename, vector<point> & means)
         //get a proportion of the origin dataset to subset and read its dimension and dataset size.
         get_proportion_dataset(filename, subset, proportion, dim, dataset_size, 0, true);
         kmeans_subset(subset, means);
+        finish = clock();
+        cout << "The time taken for one subset iteration is " << (double)(finish - start) / CLOCKS_PER_SEC << endl;
 
 
         
+        /*
         if (i > 0)
         {
-            /*
+            
             cout << "the recorded mean" << endl;
             for (int a = 0; a < mean_record.size(); a++)
             {
@@ -418,7 +431,7 @@ void kmeans(char* filename, vector<point> & means)
                 cout << endl;
             }
             cout << endl;
-            */
+            
             var = 0;
             for (int it = 0; it < means.size(); it++)
             {
@@ -430,7 +443,8 @@ void kmeans(char* filename, vector<point> & means)
             mean_record.clear();
             var_record[i-1] = var;
         }
-        
+        */
+
         /*
         cout << "the generated mean" << endl;
         for (int a = 0; a < means.size(); a++)
@@ -455,10 +469,12 @@ void kmeans(char* filename, vector<point> & means)
         cout << endl;
         */
 
+       /*
         for (int j = 0; j < means.size(); j++)
         {
             mean_record.push_back(means[j]);
         }
+        */
     }
     /*cout << "the final subset size is " << subset.size() << endl;
     cout << "the var for means generation are " << endl;
