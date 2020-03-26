@@ -91,11 +91,10 @@ void file_transfer()
             fvecs.write((char*) & feature_int, sizeof(float));
         }
         if ((count % 100000) == 0)
-            cout << "Finish " << count << "instances " << endl;
+            cout << "Finish " << count << " instances " << endl;
     }
     fvecs.close();
     bvecs.close();
-
 }
 
 int main()
