@@ -33,7 +33,7 @@ void file_write()
 void file_read()
 {
     ifstream edge_output;
-    edge_output.open("edges.bin", ios::binary);
+    edge_output.open("/home/y/yujianfu/similarity_search/datasets/ANN_SIFT1B/1milliard.p1.siftbin");
     streampos begin, end;
     begin = edge_output.tellg();
     edge_output.seekg(0, ios::end);
@@ -43,7 +43,7 @@ void file_read()
     int each_num;
     edge_output.seekg(0, ios::beg);
     //while(!edge_output.eof())
-    for (int i = 0; i < num; i++)
+    for (int i = 0; i < 100; i++)
     {
         edge_output.read((char *)& each_num, sizeof(int));
         /*cout << "this node has " << each_num << " edges " <<endl;
@@ -61,9 +61,7 @@ void file_read()
 
 int main()
 {
-    file_write();
-    file_read();
-    
-    
+    //file_write();
+    file_read();  
 }
 

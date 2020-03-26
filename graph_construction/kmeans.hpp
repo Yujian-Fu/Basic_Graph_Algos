@@ -367,7 +367,7 @@ void kmeans_subset(vector<point> & subset, vector<point>& means)
             clusters[label].push_back(subset[i]);
         }
         finish = clock();
-        cout << "The time taken for" << count << " kmeans iteration is " << (double)(finish - start) / CLOCKS_PER_SEC << endl;
+        cout << "The time taken for " << count << " kmeans iteration is " << (double)(finish - start) / CLOCKS_PER_SEC << endl;
     }
     /*cout << "here we print the mean point for one iteration with " << means.size() << " centroids "<< endl << endl;
     for(int i= 0; i < means.size(); i++)
