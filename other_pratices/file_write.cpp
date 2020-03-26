@@ -43,7 +43,7 @@ void file_read()
     edge_output.seekg(0, ios::end);
     ios::pos_type ss = edge_output.tellg();
     size_t fsize = (size_t) ss;
-    int num =  (unsigned)(fsize / (dim + 1) /4);
+    int num =  (unsigned)(fsize / (dim + 1) /sizeof(uint8_t));
 
     cout << "the size of all edges is " << num << "edges. \n" << endl;
     uint8_t each_num[dim];
