@@ -46,13 +46,13 @@ void file_read()
     int num =  (unsigned)(fsize / (dim + 1) /4);
 
     cout << "the size of all edges is " << num << "edges. \n" << endl;
-    int each_num[dim];
+    uint8_t each_num[dim];
     //while(!edge_output.eof())
     edge_output.seekg(0, ios::beg);
     for (int i = 0; i < 200; i++)
     {
         edge_output.seekg(4, ios::cur);
-        edge_output.read((char *) each_num, dim * 4);
+        edge_output.read((char *) each_num, dim*sizeof(uint8_t));
         /*cout << "this node has " << each_num << " edges " <<endl;
         for (int i = 0; i < each_num; i++)
         {
