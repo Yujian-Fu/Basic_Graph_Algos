@@ -14,7 +14,7 @@
 #define kmeans_iteration_times 2
 #define K 50
 #define usekmeansplusplus true
-#define kmeans_proportion 0.2
+#define kmeans_proportion 0.1
 
 using namespace std;
 using namespace std::chrono;
@@ -101,6 +101,8 @@ unsigned& dataset_size, float offset, bool random)
         }
         */
         //delete [] each_point;
+        if (i % 1000000 == 0)
+            cout << i << " nodes already finished" << endl;
     }
     infile.close();
     delete [] proportion_index;
