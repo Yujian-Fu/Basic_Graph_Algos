@@ -66,10 +66,42 @@ void file_read()
     }
 }
 
+void file_transfer()
+{
+    int dim;
+    ofstream fvecs;
+    fvecs.open("/home/y/yujianfu/similarity_search/datasets/ANN_SIFT1B/SIFT1B.fvecs");
+    ifstream bvecs;
+    bvecs.open("/home/y/yujianfu/similarity_search/datasets/ANN_SIFT1B/1milliard.p1.siftbin");
+    bvecs.read((char*) & dim, 4);
+    bvecs.seekg(0, ios::beg);
+    uint8_t feature;
+    float feature_int;
+    int count = 0;
+
+    while(bvecs.peek() != EOF)
+    {
+        count ++;
+        bvecs.seekg(4, ios::cur);
+        fvecs.write((char*) & dim, sizeof(int));
+        for (int i = 0; i < dim; i++)
+        {
+            bvecs.read((char*) & feature, sizeof(uint8_t));
+            feature_int = (float) feature;
+            fvecs.write((char*) & feature_int, sizeof(float));
+        }
+        if ((count % 100000) == 0)
+            cout << "Finish " << count << "instances " << endl;
+    }
+    fvecs.close();
+    bvecs.close();
+
+}
 
 int main()
 {
     //file_write();
-    file_read();  
+    //file_read(); 
+    file_transfer(); 
 }
 

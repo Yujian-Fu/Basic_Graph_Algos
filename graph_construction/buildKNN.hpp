@@ -47,6 +47,8 @@ void merge_kNN(char* filename)
     }
     all_centroids.close();
     cout << "Saving successfully " << endl;
+
+    /*
     ifstream infile(filename, ios::binary);
     if (!infile.is_open())
     {
@@ -74,9 +76,6 @@ void merge_kNN(char* filename)
         processing_point.data.clear();
         infile.seekg(4, ios::cur);
         infile.read((char*)each_point, dim * 4);
-        /*for (int j = 0; j < dim; j++)
-            cout << each_point[j] << " ";
-        cout << endl;*/
         processing_point.data.insert(processing_point.data.begin(), each_point, each_point+dim);
         // get the label of two nearest neighbors of the target point
         get_second_Label(processing_point, means, labels);
@@ -93,6 +92,7 @@ void merge_kNN(char* filename)
     {
         cout << i+1 << " th cluster: " << cluster_allocation[i].size() << endl;
     }
+    */
     
     
     /*
