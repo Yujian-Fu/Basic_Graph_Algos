@@ -70,9 +70,9 @@ void file_transfer()
 {
     int dim;
     ofstream fvecs;
-    fvecs.open("/home/y/yujianfu/similarity_search/datasets/ANN_SIFT1B/SIFT1B.fvecs");
+    fvecs.open("/home/y/yujianfu/similarity_search/datasets/ANN_SIFT1B/SIFT1B_learn.fvecs");
     ifstream bvecs;
-    bvecs.open("/home/y/yujianfu/similarity_search/datasets/ANN_SIFT1B/1milliard.p1.siftbin");
+    bvecs.open("/home/y/yujianfu/similarity_search/datasets/ANN_SIFT1B/learn.bvecs");
     bvecs.read((char*) & dim, 4);
     bvecs.seekg(0, ios::beg);
     uint8_t feature;
