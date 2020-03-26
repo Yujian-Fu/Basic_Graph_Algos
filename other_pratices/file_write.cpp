@@ -34,7 +34,7 @@ void file_read()
 {
     int dim;
     ifstream edge_output;
-    edge_output.open("/home/y/yujianfu/similarity_search/datasets/ANN_SIFT1B/1milliard.p1.siftbin");
+    edge_output.open("/home/y/yujianfu/similarity_search/datasets/ANN_SIFT1M/sift_base.fvecs");
     streampos begin, end;
     begin = edge_output.tellg();
     edge_output.read((char*) & dim, 4);
