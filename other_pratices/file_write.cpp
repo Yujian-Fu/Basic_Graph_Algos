@@ -46,7 +46,7 @@ void file_read()
     int num =  (unsigned)(fsize / (dim + 1) /4);
 
     cout << "the size of all edges is " << num << "edges. \n" << endl;
-    float each_num[dim];
+    int each_num[dim];
     //while(!edge_output.eof())
     edge_output.seekg(0, ios::beg);
     for (int i = 0; i < 200; i++)
