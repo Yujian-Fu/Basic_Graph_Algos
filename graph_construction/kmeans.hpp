@@ -12,7 +12,7 @@
 #include "struct_define.hpp"
 
 #define kmeans_iteration_times 5
-#define K 50
+#define K 20
 #define usekmeansplusplus true
 #define kmeans_proportion 0.5
 

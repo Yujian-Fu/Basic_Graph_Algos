@@ -95,7 +95,7 @@ void merge_kNN(char* filename)
     }
     
     
-
+    /*
     //the edges for all nodes, each node with a adj_list
     vector<adj_list> all_edges;
     for (int i = 0; i < dataset_size; i++)
@@ -105,6 +105,7 @@ void merge_kNN(char* filename)
     }
 
 
+    
     for (int i = 0; i < K; i++)
     {
         cout << "Now building and merging " << i << " th subgraph" << endl; 
@@ -129,18 +130,7 @@ void merge_kNN(char* filename)
         build_sub_graph(vertex_nodes, adj_lists);
         vector<vertex>().swap(vertex_nodes);
         merge_edges(all_edges, adj_lists);
-        
-        /*
-        for (int it = 0; it < all_edges.size(); it++)
-        {
-            cout << endl << "the edges for node " << all_edges[it].id << " is " << endl;
-                for(set<int>::iterator it_=all_edges[it].edges.begin() ;it_!=all_edges[it].edges.end();it_++)
-                {
-                    cout<<*it_<<"  ";
-                }
-                cout << endl;
-        }
-        */
+
         vector<adj_list>().swap(adj_lists);
     }
     //the out put part
@@ -168,6 +158,8 @@ void merge_kNN(char* filename)
     edge_output.close();
     cout << "Saving successfully " << endl;
     cout << "the total size in this graph is " << num_all_edges << endl;
+    */
+
     /*
     ifstream edges;
     int each_edge;

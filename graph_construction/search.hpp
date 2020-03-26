@@ -4,7 +4,7 @@
 #include <algorithm>
 #include "struct_define.hpp"
 
-#define pool_size 20
+#define pool_size 60
 #define num_start_node 1
 #define test_cases 1000
 
@@ -199,6 +199,8 @@ void search(char* filename)
     float recall_1 = 0;
     float visited_num = 0;
     float inserted_num = 0;
+    clock_t start,finish;
+    start = clock();
     for (int i= 0; i < query.size(); i++)
     {
         for (int j = 0; j < num_points; j++)
@@ -279,9 +281,12 @@ void search(char* filename)
         }
         //cout << "the visited num: " << visited_num << " the inserted num: " << inserted_num << endl;
     }
+    finish = clock();
     visited_num /= test_cases;
     inserted_num /= test_cases;
     recall_1 /= test_cases;
+    cout << "Search takes " << (double)(finish - start) / CLOCKS_PER_SEC << " second." << endl;
     cout << "The visited number, inserted number and the recall@1 is: " << visited_num << " " << inserted_num << " " << recall_1 << endl;
+
 return;
 }

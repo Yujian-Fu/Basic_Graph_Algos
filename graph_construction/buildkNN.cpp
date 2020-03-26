@@ -11,25 +11,30 @@ using namespace std;
 int main()
 {
     //test the get_proportion_dataset
-    //string str = "/home/yujian/Downloads/similarity_search_datasets/ANN_SIFT10K/siftsmall_base.fvecs";
-    string str = "/home/y/yujianfu/similarity_search/datasets/ANN_SIFT1M/sift_learn.fvecs";
+    string str = "/home/yujian/Downloads/similarity_search_datasets/ANN_SIFT10K/siftsmall_base.fvecs";
+    //string str = "/home/y/yujianfu/similarity_search/datasets/ANN_SIFT1M/sift_learn.fvecs";
     char* filename = const_cast<char*>(str.c_str());
     clock_t start,finish;
     
-    /*
+    
     start = clock();
     merge_kNN(filename);
     finish = clock();
     cout << "Graph construciton takes " << (double)(finish - start) / CLOCKS_PER_SEC << " second." << endl;
-    */
+    
+    
+    /*
     start = clock();
     transitive_reduction(filename);
     finish = clock();
     cout << "Transitive Reduction takes " << (double)(finish - start) / CLOCKS_PER_SEC << " second." << endl;
+
     
-    start = clock();
+    
+    
     search(filename);
-    finish = clock();
-    cout << "Transitive Reduction takes " << (double)(finish - start) / CLOCKS_PER_SEC << " second." << endl;
+    */
+    
+    
 
 }
