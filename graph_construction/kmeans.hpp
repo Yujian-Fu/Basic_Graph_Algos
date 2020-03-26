@@ -14,7 +14,7 @@
 #define kmeans_iteration_times 2
 #define K 50
 #define usekmeansplusplus true
-#define kmeans_proportion 0.01
+#define kmeans_proportion 0.2
 
 using namespace std;
 using namespace std::chrono;
