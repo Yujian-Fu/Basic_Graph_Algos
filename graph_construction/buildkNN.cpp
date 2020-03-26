@@ -11,8 +11,8 @@ using namespace std;
 int main()
 {
     //test the get_proportion_dataset
-    string str = "/home/yujian/Downloads/similarity_search_datasets/ANN_SIFT10K/siftsmall_base.fvecs";
-    //string str = "/home/y/yujianfu/similarity_search/datasets/ANN_SIFT1M/sift_learn.fvecs";
+    //string str = "/home/yujian/Downloads/similarity_search_datasets/ANN_SIFT10K/siftsmall_base.fvecs";
+    string str = "/home/y/yujianfu/similarity_search/datasets/ANN_SIFT1B/learn.fvecs";
     char* filename = const_cast<char*>(str.c_str());
     clock_t start,finish;
     
