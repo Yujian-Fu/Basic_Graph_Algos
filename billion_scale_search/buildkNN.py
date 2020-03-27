@@ -15,7 +15,7 @@ proportion = 0.01
 
 for i in range(int(1/proportion)):
     processing_subset = np.ascontiguousarray(x[int(dataset_size*proportion*i) : int(dataset_size*proportion*(i+1)), :].astype('float32'))
-    kmeans = faiss.Kmeans(d, k, niter = niter, verbose = True)
+    kmeans = faiss.Kmeans(d, k, niter = niter, verbose = True, gpu=True)
     kmeans.train(processing_subset)
     print(kmeans.obj)
     print(kmeans.centroids)
