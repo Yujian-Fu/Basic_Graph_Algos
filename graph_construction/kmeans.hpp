@@ -13,7 +13,7 @@
 
 #define kmeans_iteration_times 2
 #define K 50
-#define usekmeansplusplus true
+#define usekmeansplusplus false
 #define kmeans_proportion 0.1
 
 using namespace std;
@@ -109,7 +109,6 @@ unsigned& dataset_size, float offset, bool random)
     //auto stop = high_resolution_clock::now();
     //auto duration = duration_cast<microseconds>(stop - start);
     //cout << "Time taken by function: " << duration.count() << " microseconds" << endl;
-
 }
 
 //compute the distance between two nodes
