@@ -19,7 +19,10 @@ proportion = 0.01
 for i in range(int(1/proportion)):
     print(i, " th iteration")
     #processing_subset = np.ascontiguousarray(x[int(dataset_size*proportion*i) : int(dataset_size*proportion*(i+1)), :].astype('float32'))
-    processing_subset = np.ascontiguousarray(x[int(dataset_size*proportion*i) : int(dataset_size*proportion*(i+1)), :])
+    start = int(dataset_size*proportion*i)
+    end = int(dataset_size*proportion*(i+1))
+    print("The data range is ", start, end)
+    processing_subset = np.ascontiguousarray(x[start : end, :])
     print("Finish data loading, start clustering")
     #kmeans = faiss.Kmeans(d, k, niter = niter, verbose = True, gpu=True)
     #kmeans.train(processing_subset)
