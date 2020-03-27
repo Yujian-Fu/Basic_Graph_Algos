@@ -13,11 +13,13 @@ print("testing random read and sequential read")
 
 
 print("1000 instances")
+'''
 starttime = time.time()
 index = random.sample(range(0, x.shape[0]), 1000)
 dataset = np.ascontiguousarray(x[index, :])
 endtime = time.time()
 print (endtime - starttime)
+'''
 
 starttime = time.time()
 index = random.sample(range(0, x.shape[0]), 1000)
@@ -26,12 +28,13 @@ endtime = time.time()
 print (endtime - starttime)
 
 print("10000 instances")
+'''
 starttime = time.time()
 index = random.sample(range(0, x.shape[0]), 10000)
 dataset = np.ascontiguousarray(x[index, :])
 endtime = time.time()
 print (endtime - starttime)
-
+'''
 starttime = time.time()
 index = random.sample(range(0, x.shape[0]), 10000)
 dataset = np.ascontiguousarray(x[0:10000, :])
@@ -39,11 +42,13 @@ endtime = time.time()
 print (endtime - starttime)
 
 print("100000 instances")
+'''
 starttime = time.time()
 index = random.sample(range(0, x.shape[0]), 100000)
 dataset = np.ascontiguousarray(x[index, :])
 endtime = time.time()
 print (endtime - starttime)
+'''
 
 starttime = time.time()
 index = random.sample(range(0, x.shape[0]), 100000)
@@ -52,11 +57,13 @@ endtime = time.time()
 print (endtime - starttime)
 
 print("1000000 instances")
+'''
 starttime = time.time()
 index = random.sample(range(0, x.shape[0]), 1000000)
 dataset = np.ascontiguousarray(x[index, :])
 endtime = time.time()
 print (endtime - starttime)
+'''
 
 starttime = time.time()
 index = random.sample(range(0, x.shape[0]), 1000000)
@@ -65,12 +72,13 @@ endtime = time.time()
 print (endtime - starttime)
 
 print("10000000 instances")
+'''
 starttime = time.time()
 index = random.sample(range(0, x.shape[0]), 10000000)
 dataset = np.ascontiguousarray(x[index, :])
 endtime = time.time()
 print (endtime - starttime)
-
+'''
 starttime = time.time()
 index = random.sample(range(0, x.shape[0]), 10000000)
 dataset = np.ascontiguousarray(x[0:10000000, :])
