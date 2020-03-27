@@ -9,7 +9,7 @@ x = x.reshape(-1, d + 4)[:, 4:]
 dataset_size = x.shape[0]
 k = 100
 niter = 100
-proportion = 0.1
+proportion = 0.01
 #index = random.sample(range(0, x.shape[0]), int(proportion * x.shape[0]))
 
 
